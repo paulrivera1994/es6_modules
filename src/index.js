@@ -12,12 +12,18 @@ const modelDisplay = document.querySelector("#car-model");
 const yearDisplay = document.querySelector("#car-year");
 const removeBtn = document.querySelector("#removeBtn");
 const wishlistUl = document.querySelector("#wishListContainer > ul");
+let wishlist = new WishList();
 
 form.addEventListener("submit", addCar);
 removeBtn.addEventListener("click", removeCar);
 
-let wishlist = new WishList();
-
+function showCarDetails(car) {
+  makeDisplay.textContent = car.make;
+  modelDisplay.textContent = car.model;
+  yearDisplay.textContent = car.year;
+  removeBtn.disabled = false;
+  removeBtn.setAttribute("data-carId", car.id);
+}
 function updateDOMList() {
   wishlistUl.textContent = "";
   wishlist.list.forEach((car) => {
@@ -26,13 +32,6 @@ function updateDOMList() {
     li.addEventListener("click", () => showCarDetails(car));
     wishlistUl.appendChild(li);
   });
-}
-function showCarDetails(car) {
-  makeDisplay.textContent = car.make;
-  modelDisplay.textContent = car.model;
-  yearDisplay.textContent = car.year;
-  removeBtn.disabled = false;
-  removeBtn.setAttribute("data-carId", car.id);
 }
 
 function addCar(e) {
