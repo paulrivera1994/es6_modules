@@ -10,12 +10,11 @@ const yearInput = document.querySelector("#yearInput");
 const makeDisplay = document.querySelector("#car-make");
 const modelDisplay = document.querySelector("#car-model");
 const yearDisplay = document.querySelector("#car-year");
-const removeBtn = document.querySelector("#removeBtn");
+const removeBtn = document.querySelector(".removeBtn");
 const wishlistUl = document.querySelector("#wishListContainer > ul");
 let wishlist = new WishList();
 
 form.addEventListener("submit", addCar);
-removeBtn.addEventListener("click", removeCar);
 
 function showCarDetails(car) {
   makeDisplay.textContent = car.make;
@@ -23,9 +22,10 @@ function showCarDetails(car) {
   yearDisplay.textContent = car.year;
   removeBtn.disabled = false;
   removeBtn.setAttribute("data-carId", car.id);
+  removeBtn.addEventListener("click", removeCar);
 }
 function updateDOMList() {
-  wishlistUl.textContent = "";
+  wishlistUl.innerHTML = "";
   wishlist.list.forEach((car) => {
     const li = document.createElement("li");
     li.textContent = `${car.make} ${car.model}`;
@@ -44,7 +44,7 @@ function addCar(e) {
 }
 
 function removeCar() {
-  const carId = Number(removeBtn.getAttribute("data-carId"));
+  let carId = Number(removeBtn.getAttribute("data-carId"));
   wishlist.remove(carId);
 
   updateDOMList();
